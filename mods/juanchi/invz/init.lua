@@ -94,7 +94,9 @@ minetest.register_on_dieplayer(function(player, reason)
 end)
 
 minetest.register_on_joinplayer(function(player, last_login)
-	player:get_meta():set_int("invz:last_login", last_login)
+	if last_login then
+		player:get_meta():set_int("invz:last_login", last_login)
+	end
 	player:get_meta():set_int("invz:join_time", os.time())
 end)
 
