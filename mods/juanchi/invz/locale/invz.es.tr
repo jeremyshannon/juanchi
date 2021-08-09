@@ -2,3 +2,17 @@
 Server=Servidor
 Day=Día
 Night=Noche
+Level=Nivel
+Stats=Estado
+times died=veces muerto
+times died by player=veces muerto por jugador
+times died by creature=veces muerto por criatura
+times died by fall=veces muerto por caída
+times drown=veces ahogado
+times died by fire=veces abrasado por fuego
+times died by lava=veces abrasado por lava
+kills=muertes
+Last Login=Último ingreso
+This Session Time=Tiempo de sesión
+Total Play Time=Tiempo total jugado
+

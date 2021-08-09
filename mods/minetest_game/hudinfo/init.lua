@@ -74,7 +74,7 @@ minetest.register_globalstep(function(dtime)
 		for _, player in pairs(minetest.get_connected_players()) do
 			local biome_name = get_biome_name(player)
 			local player_name = player:get_player_name()
-			if not(biome_name == hbinfo.players[player_name].biome_name) then
+			if hbinfo.players[player_name] and not(biome_name == hbinfo.players[player_name].biome_name) then
 				hbinfo.players[player_name].biome_name = biome_name
 				player:hud_change(hbinfo.players[player_name].idx, "text", biome_name)
 			end
