@@ -2318,6 +2318,72 @@ function default.register_decorations()
 		flags= "all_floors",
 	})
 
+	-- Brazilwood
+
+	minetest.register_decoration({
+		name = "default:brazilwood",
+		decoration = "default:brazilwood",
+		deco_type = "simple",
+		biomes = {"rainforest"},
+		place_on = {"default:dirt_with_rainforest_litter"},
+		sidelen = 16,
+		noise_params = {
+			offset = 0.016,
+			scale = 0.016,
+			spread = {x = 20, y = 20, z = 20},
+			seed = 589,
+			octaves = 3,
+			persist = 0.7
+		},
+		y_max = 31000,
+		y_min = 1,
+		flags= "all_floors",
+	})
+
+	-- Alocasia
+
+	minetest.register_decoration({
+		name = "default:alocasia",
+		decoration = "default:alocasia",
+		deco_type = "simple",
+		biomes = {"rainforest"},
+		place_on = {"default:dirt_with_rainforest_litter"},
+		sidelen = 16,
+		noise_params = {
+			offset = 0.016,
+			scale = 0.016,
+			spread = {x = 20, y = 20, z = 20},
+			seed = 458,
+			octaves = 3,
+			persist = 0.7
+		},
+		y_max = 31000,
+		y_min = 1,
+		flags= "all_floors",
+	})
+
+	-- Bird of Paradise
+
+	minetest.register_decoration({
+		name = "default:bird_paradise",
+		decoration = "default:bird_paradise",
+		deco_type = "simple",
+		biomes = {"rainforest"},
+		place_on = {"default:dirt_with_rainforest_litter"},
+		sidelen = 16,
+		noise_params = {
+			offset = 0.016,
+			scale = 0.016,
+			spread = {x = 20, y = 20, z = 20},
+			seed = 82,
+			octaves = 3,
+			persist = 0.7
+		},
+		y_max = 31000,
+		y_min = 1,
+		flags= "all_floors",
+	})
+
 	-- Sunflower
 
 	minetest.register_decoration({

@@ -35,7 +35,7 @@ Stick=Палка
 Tin Ingot=Оловянный Слиток
 Tin Lump=Кусок Олова
 Furnace is empty=Печь пуста
-100% (output full)=100% (полное приготовление) 
+100% (output full)=100% (полное приготовление)
 @1%=@1%
 Not cookable=Не может быть приготовлено
 Empty=Пустое
@@ -213,7 +213,9 @@ Diamond Sword=Алмазный Меч
 Key=Ключ
 Torch=Факел
 @1 will intersect protection on growth.=@1 пересечёт защиту по росту.
-
+Brazilwood=бразильское дерево
+Buddha's Hand=Рука Будды
+Bird of Paradise=Райская птица
 
 ##### not used anymore #####
 

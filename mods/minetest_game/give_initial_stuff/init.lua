@@ -2,7 +2,7 @@
 
 local stuff_string = minetest.settings:get("initial_stuff") or
 		"default:pick_wood,default:axe_wood,default:shovel_wood,default:apple,"..
-		"farming:breadº"
+		"farming:bread"
 
 give_initial_stuff = {
 	items = {}

@@ -101,7 +101,7 @@ minetest.register_on_joinplayer(function(player, last_login)
 end)
 
 minetest.register_on_leaveplayer(function(player, timed_out)
-	meta:set_int("invz:play_time", get_play_time(player))
+	player:get_meta():set_int("invz:play_time", get_play_time(player))
 end)
 
 sfinv.register_page("server", {

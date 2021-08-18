@@ -150,7 +150,7 @@ Pink Coral=Corail rose
 Cyan Coral=Corail cyan
 Brown Coral=Corail marron
 Orange Coral=Corail orange
-Coral Skeleton=Squelette de corail 
+Coral Skeleton=Squelette de corail
 Water Source=Source d'eau
 Flowing Water=Ecoulement d'eau
 River Water Source=Source d'eau de rivière
@@ -213,7 +213,9 @@ Diamond Sword=Epée en diamant
 Key=Clé
 Torch=Torche
 @1 will intersect protection on growth.=@1 chevauchera la zone protégée avec la croissance.
-
+Brazilwood=Bois de Brésil
+Buddha's Hand=Main de Bouddha
+Bird of Paradise=Oiseau de Paradis
 
 ##### not used anymore #####
 

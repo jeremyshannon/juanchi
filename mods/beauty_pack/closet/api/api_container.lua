@@ -34,7 +34,8 @@ function closet.compose_preview(clicker, gender)
 	if not(underwear) then
 		lower = "cloth_lower_underwear_preview.png"
 	end
-	local base_texture = player_api.compose_base_texture(clicker, {
+	local _base_texture = player_api.get_base_texture_table(clicker)
+	local base_texture = player_api.compose_base_texture(_base_texture, {
 		canvas_size ="32x64",
 		skin_texture = "closet_player_preview.png",
 		eyebrowns_pos = "8,0",

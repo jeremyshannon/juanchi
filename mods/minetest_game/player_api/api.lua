@@ -369,8 +369,19 @@ function player_api.set_texture(player)
 	player_api.set_textures(player, models[gender_model].textures)
 end
 
-function player_api.compose_face(player, scale)
-	return player_api.compose_base_texture(player, {
+function player_api.get_face(base_texture, scale, escape)
+	if not scale then
+		scale = 1.0
+	end
+	local face = player_api.compose_face(base_texture, scale)
+	if escape then
+		face = minetest.formspec_escape(face)
+	end
+	return face
+end
+
+function player_api.compose_face(base_texture, scale)
+	return player_api.compose_base_texture(base_texture, {
 		canvas_size = "16x16",
 		scale = scale,
 		skin_texture = "player_face_skin.png",

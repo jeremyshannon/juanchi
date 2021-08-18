@@ -13,9 +13,9 @@ local function create_form()
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local player_name = player:get_player_name()
 		local player_face
-		if player_api.get_gender(player) then
-			player_face = player_api.compose_face(player, 2.0)
-			player_face = minetest.formspec_escape(player_face)
+		if player_api.get_gender(player) ~= "" then
+			local base_texture = player_api.get_base_texture_table(player)
+			player_face = player_api.get_face(base_texture, 2.0, true)
 		else
 			player_face = "player_male_face.png"
 		end

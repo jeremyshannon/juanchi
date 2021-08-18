@@ -134,7 +134,7 @@ function player_api.set_cloths(player)
 	inv:add_item("cloths", 'player_api:cloth_unisex_footwear_default')
 end
 
-local cloth_pos = {
+player_api.cloth_pos = {
 	"48,0",
 	"32,32",
 	"0,32",
@@ -170,7 +170,8 @@ function player_api.compose_cloth(player)
 	if not(underwear) then
 		lower_ItemStack = "cloth_lower_underwear_default.png"
 	end
-	local base_texture = player_api.compose_base_texture(player, {
+	local _base_texture = player_api.get_base_texture_table(player)
+	local base_texture = player_api.compose_base_texture(_base_texture, {
 		canvas_size ="128x64",
 		skin_texture = "player_skin.png",
 		eyebrowns_pos = "16,16",
@@ -182,16 +183,16 @@ function player_api.compose_cloth(player)
 	})
 	local cloth = base_texture.."^".."[combine:128x64:0,0="
 	if head_ItemStack then
-		cloth = cloth .. ":"..cloth_pos[1].."="..head_ItemStack
+		cloth = cloth .. ":"..player_api.cloth_pos[1].."="..head_ItemStack
 	end
 	if upper_ItemStack then
-		cloth = cloth .. ":"..cloth_pos[2].."="..upper_ItemStack
+		cloth = cloth .. ":"..player_api.cloth_pos[2].."="..upper_ItemStack
 	end
 	if lower_ItemStack then
-		cloth = cloth .. ":"..cloth_pos[3].."="..lower_ItemStack
+		cloth = cloth .. ":"..player_api.cloth_pos[3].."="..lower_ItemStack
 	end
 	if footwear_ItemStack then
-		cloth = cloth .. ":"..cloth_pos[4].."="..footwear_ItemStack
+		cloth = cloth .. ":"..player_api.cloth_pos[4].."="..footwear_ItemStack
 	end
 	--Now attached cloth
 	if not(next(attached_cloth) == nil) then
@@ -199,7 +200,7 @@ function player_api.compose_cloth(player)
 			local attached_item_name = attached_cloth[i]
 			local attached_itemstack = minetest.registered_items[attached_item_name]
 			local attached_cloth_type = minetest.get_item_group(attached_item_name, "cloth")
-			cloth = cloth .. ":"..cloth_pos[attached_cloth_type].."="..attached_itemstack._cloth_texture
+			cloth = cloth .. ":"..player_api.cloth_pos[attached_cloth_type].."="..attached_itemstack._cloth_texture
 		end
 	end
 	return cloth

@@ -3,7 +3,7 @@ player_api.hair_colors = {
 		color = "#000000",
 		ratio = 175,
 	},
-	gray = nil,
+	gray = {},
 	light_brown = {
 		color = "#7a4c20",
 		ratio = 150,
@@ -65,10 +65,8 @@ function player_api.set_base_texture(player, base_texture)
 	meta:set_string("base_texture", minetest.serialize(base_texture))
 end
 
-function player_api.set_base_textures(player)
-	local meta = player:get_meta()
+function player_api.create_base_texture(gender)
 	local base_texture = {}
-	local gender = meta:get_string("gender")
 	local hair_color = hair_colors_redux[math.random(#hair_colors_redux)]
 	local eye_color = "player_"..player_api.eye_colors[math.random(#player_api.eye_colors)].."_eye.png"
 	if gender == "male" then
@@ -84,11 +82,17 @@ function player_api.set_base_textures(player)
 	end
 	base_texture["skin"] = {texture = "player_skin.png", color =
 		skin_colors_redux[math.random(#skin_colors_redux)]}
+	return base_texture
+end
+
+function player_api.set_base_textures(player)
+	local meta = player:get_meta()
+	local gender = meta:get_string("gender")
+	local base_texture = player_api.create_base_texture(gender)
 	player_api.set_base_texture(player, base_texture)
 end
 
-function player_api.colorize_texture(player, what, texture)
-	local base_texture = player_api.get_base_texture_table(player)
+local function colorize_texture(base_texture, what, texture)
 	if base_texture[what]["color"] then
 		local value
 		if what == "skin" then
@@ -96,7 +100,7 @@ function player_api.colorize_texture(player, what, texture)
 		else --"hair"
 			value = player_api.hair_colors[base_texture[what]["color"]]
 		end
-		if value then
+		if value and value.color then
 			return texture .. "\\^\\[colorize\\:\\"..value.color.."\\:"..tostring(value.ratio)
 		else
 			return texture
@@ -106,9 +110,9 @@ function player_api.colorize_texture(player, what, texture)
 	end
 end
 
-function player_api.compose_base_texture(player, def)
-	local base_texture = player_api.get_base_texture_table(player)
-	local texture = player_api.colorize_texture(player, "skin", "[combine:"..def.canvas_size..":0,0="..def.skin_texture)
+function player_api.compose_base_texture(base_texture, def)
+
+	local texture = colorize_texture(base_texture, "skin", "[combine:"..def.canvas_size..":0,0="..def.skin_texture)
 
 	local ordered_keys = {}
 
@@ -121,7 +125,7 @@ function player_api.compose_base_texture(player, def)
 	for i = 1, #ordered_keys do
 		local key, value = ordered_keys[i], base_texture[ordered_keys[i]]
 		if key == "eyebrowns" then
-			value.texture = player_api.colorize_texture(player, "eyebrowns", value.texture)
+			value.texture = colorize_texture(base_texture, "eyebrowns", value.texture)
 			texture = texture .. ":"..def.eyebrowns_pos.."="..value.texture
 		elseif key == "eye" then
 			texture = texture .. ":"..def.eye_right_pos.."="..value
@@ -132,7 +136,7 @@ function player_api.compose_base_texture(player, def)
 			if def.hair_preview then
 				value.texture = string.sub(value.texture, 0, -5).."_preview.png"
 			end
-			value.texture = player_api.colorize_texture(player, "hair", value.texture)
+			value.texture = colorize_texture(base_texture, "hair", value.texture)
 			texture = texture .. ":"..def.hair_pos.."="..value.texture
 		end
 	end

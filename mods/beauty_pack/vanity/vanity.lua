@@ -3,7 +3,9 @@ local S = ...
 function vanity.get_vanity_formspec(clicker)
 	--5.4--local model = player_api.get_gender_model(gender)
 
-	local face_preview = minetest.formspec_escape(player_api.compose_base_texture(clicker, {
+	local _base_texture = player_api.get_base_texture_table(clicker)
+
+	local face_preview = minetest.formspec_escape(player_api.compose_base_texture(_base_texture, {
 		canvas_size ="16x16",
 		skin_texture = "vanity_face_base.png",
 		eyebrowns_pos = "0,0",

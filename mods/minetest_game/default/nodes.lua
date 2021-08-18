@@ -1476,6 +1476,63 @@ minetest.register_node("default:bioluminiscent_plant", {
 	},
 })
 
+minetest.register_node("default:brazilwood", {
+	description = S("Brazilwood"),
+	drawtype = "plantlike",
+	tiles = {"default_brazilwood.png"},
+	visual_scale = 1.25,
+	inventory_image = "default_brazilwood.png",
+	wield_image = "default_brazilwood.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	groups = {snappy = 3, flammable = 3, flower =1, flora=1,  attached_node = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 3.5 / 16, 4 / 16},
+	},
+})
+
+minetest.register_node("default:alocasia", {
+	description = S("Buddha's Hand"),
+	drawtype = "plantlike",
+	tiles = {"default_alocasia.png"},
+	visual_scale = 1.05,
+	inventory_image = "default_alocasia.png",
+	wield_image = "default_alocasia.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	groups = {snappy = 3, flammable = 3, flower =1, flora=1,  attached_node = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 3.5 / 16, 4 / 16},
+	},
+})
+
+minetest.register_node("default:bird_paradise", {
+	description = S("Bird of Paradise"),
+	drawtype = "plantlike",
+	tiles = {"default_bird_paradise.png"},
+	visual_scale = 1.5,
+	inventory_image = "default_bird_paradise.png",
+	wield_image = "default_bird_paradise.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	groups = {snappy = 3, flammable = 3, flower =1, flora=1,  attached_node = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 3.5 / 16, 4 / 16},
+	},
+})
+
 minetest.register_node("default:junglegrass", {
 	description = S("Jungle Grass"),
 	drawtype = "plantlike",
