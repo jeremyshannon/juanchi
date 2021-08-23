@@ -233,15 +233,6 @@ minetest.register_craft({
 	burntime = 7,
 })
 
-
-minetest.register_lbm({
-	name = "cherrytree:convert_cherrytree_saplings_to_node_timer",
-	nodenames = {"cherrytree:sapling"},
-	action = function(pos)
-		minetest.get_node_timer(pos):start(math.random(1200, 2400))
-	end
-})
-
 default.register_leafdecay({
 	trunks = {"cherrytree:trunk"},
 	leaves = {"cherrytree:leaves"},
@@ -263,10 +254,10 @@ if minetest.settings:get_bool("cool_fences", true) then
 		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 		sounds = default.node_sound_wood_defaults(),
 	}
-	default.register_fence("cherrytree:fence", table.copy(fence)) 
+	default.register_fence("cherrytree:fence", table.copy(fence))
 	fence.description = S("Cherry Tree Fence Rail")
 	default.register_fence_rail("cherrytree:fence_rail", table.copy(fence))
-	
+
 	if minetest.get_modpath("doors") ~= nil then
 		fence.description = S("Cherry Tree Fence Gate")
 		doors.register_fencegate("cherrytree:gate", table.copy(fence))

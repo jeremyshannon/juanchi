@@ -145,7 +145,6 @@ minetest.register_node("mahogany:creeper", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	tiles = {"mahogany_creeper.png"},
-	use_texture_alpha = "clip",
 	inventory_image = "mahogany_creeper.png",
 	wield_image = "mahogany_creeper.png",
 	node_box = {
@@ -165,7 +164,6 @@ minetest.register_node("mahogany:flower_creeper", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	tiles = {"mahogany_flower_creeper.png"},
-	use_texture_alpha = "clip",
 	inventory_image = "mahogany_flower_creeper.png",
 	wield_image = "mahogany_flower_creeper.png",
 	node_box = {
@@ -185,7 +183,6 @@ minetest.register_node("mahogany:hanging_creeper", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	tiles = {"mahogany_hanging_creeper.png"},
-	use_texture_alpha = "clip",
 	inventory_image = "mahogany_hanging_creeper.png",
 	wield_image = "mahogany_hanging_creeper.png",
 	node_box = {
@@ -221,15 +218,6 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "mahogany:wood",
 	burntime = 7,
-})
-
-
-minetest.register_lbm({
-	name = "mahogany:convert_mahogany_saplings_to_node_timer",
-	nodenames = {"mahogany:sapling"},
-	action = function(pos)
-		minetest.get_node_timer(pos):start(math.random(1200, 2400))
-	end
 })
 
 default.register_leafdecay({

@@ -27,6 +27,11 @@ You can create a "user.lua" file with your loots definitions.
 
 Hold the special key (aux) and rightclick the merchantz. It requires the server priv.
 
+## Spawn
+
+By default some merchants spawn in the world and after a time are leaving.
+See the 'eraz.conf' file to enable/disable and config.
+
 ## Licenses
 
 - Code: GPL v3.0

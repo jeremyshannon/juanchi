@@ -10,29 +10,10 @@ petz.on_die = function(self)
 	local pos = self.object:get_pos()
 	--Specific of each mob-->
 	if self.is_mountable then
-		if self.saddle then -- drop saddle when petz is killed while riding
-			minetest.add_item(pos, "petz:saddle")
-		end
-		if self.saddlebag then -- drop saddlebag
-			minetest.add_item(pos, "petz:saddlebag")
-		end
-		--Drop the items from petz inventory
-		local inv = minetest.get_inventory({ type="detached", name="saddlebag_inventory" })
-		inv:set_list("saddlebag", {})
-		if self.saddlebag_inventory then
-			for key, value in pairs(self.saddlebag_inventory) do
-				inv:set_stack("saddlebag", key, value)
-			end
-			for i = 1, inv:get_size("saddlebag") do
-				local stack = inv:get_stack("saddlebag", i)
-				if stack:get_count() > 0 then
-					minetest.item_drop(stack, self.object, pos)
-				end
-			end
-		end
+		petz.free_saddles(self)
 		 --Drop horseshoes-->
 		if self.horseshoes and self.horseshoes > 0 then
-			mokapi.drop_item(self, "petz:horseshoe", self.horseshoes)
+			mokapi.drop_item(self, ItemStack("petz:horseshoe".." "..tostring(self.horseshoes)))
 		end
 		--If mounted, force unmount-->
 		if self.driver then

@@ -15,7 +15,7 @@ minetest.register_entity("petz:wagon",{
 	hitbox = {-0.5, -1.5, -1.5, 0.5, -0.25, -3.0},
 	on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir, damage)
 		if self.object:get_hp() - damage <= 0 then
-			mokapi.drop_item(self, "petz:wagon", 1)
+			mokapi.drop_item(self, ItemStack("petz:wagon 1"))
 		end
 	end,
 })

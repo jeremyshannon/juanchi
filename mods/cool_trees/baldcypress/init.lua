@@ -25,8 +25,8 @@ end
 --
 
 if mg_name ~= "v6" and mg_name ~= "singlenode" then
-	name = "baldcypress:baldcypress_tree",
 	minetest.register_decoration({
+		name = "baldcypress:baldcypress_tree",
 		deco_type = "schematic",
 		place_on = {"default:sand"},
 		sidelen = 16,
@@ -140,7 +140,6 @@ minetest.register_node("baldcypress:dry_branches", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	tiles = {"baldcypress_dry_branches.png"},
-	use_texture_alpha = "clip",
 	inventory_image = "baldcypress_dry_branches.png",
 	wield_image = "baldcypress_dry_branches.png",
 	node_box = {
@@ -160,7 +159,6 @@ minetest.register_node("baldcypress:liana", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	tiles = {"baldcypress_liana.png"},
-	use_texture_alpha = "clip",
 	inventory_image = "baldcypress_liana.png",
 	wield_image = "baldcypress_liana.png",
 	is_ground_content = false,
@@ -198,15 +196,6 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "baldcypress:wood",
 	burntime = 7,
-})
-
-
-minetest.register_lbm({
-	name = "baldcypress:convert_baldcypress_saplings_to_node_timer",
-	nodenames = {"baldcypress:sapling"},
-	action = function(pos)
-		minetest.get_node_timer(pos):start(math.random(1200, 2400))
-	end
 })
 
 default.register_leafdecay({

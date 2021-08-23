@@ -82,7 +82,7 @@ petz.on_rightclick = function(self, clicker)
 		end
 	elseif self.type == "ant" and self.ant_type == "queen" then
 		if wielded_item_name == "farming:seed_wheat" then
-			petz_feed_queen_ant(self, clicker, player_name, wielded_item)
+			petz.feed_queen_ant(self, clicker, player_name, wielded_item)
 		end
 	elseif self.milkable and wielded_item_name == "bucket:bucket_empty" and clicker:get_inventory() then
 		if not(self.milked) then

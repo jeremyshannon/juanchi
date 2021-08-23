@@ -15,6 +15,7 @@ function give_initial_stuff.give(player)
 	for _, stack in ipairs(give_initial_stuff.items) do
 		inv:add_item("main", stack)
 	end
+	elez.add_money(player, 100)
 end
 
 function give_initial_stuff.add(stack)

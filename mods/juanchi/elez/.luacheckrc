@@ -1,9 +1,10 @@
-unused_args = false
-allow_defined_top = true
+unused_args = true
+allow_defined_top = false
 max_line_length = false
 
 globals = {
     "minetest",
+    "elez"
 }
 
 read_globals = {

@@ -9,27 +9,27 @@ climatez.settings = {}
 
 local settings = Settings(modpath .. "/climatez.conf")
 
-climatez.settings.climate_min_height = tonumber(settings:get("climate_min_height"))
-climatez.settings.climate_change_ratio = tonumber(settings:get("climate_change_ratio"))
-climatez.settings.radius = tonumber(settings:get("climate_radius"))
-climatez.settings.climate_duration = tonumber(settings:get("climate_duration"))
-climatez.settings.duration_random_ratio = tonumber(settings:get("climate_duration_random_ratio"))
-climatez.settings.climate_period = tonumber(settings:get("climate_period"))
-climatez.settings.climate_rain_sound = settings:get_bool("climate_rain_sound")
-climatez.settings.thunder_sound = settings:get_bool("thunder_sound")
-climatez.settings.storm_chance = tonumber(settings:get("storm_chance"))
-climatez.settings.lightning = settings:get_bool("lightning")
-climatez.settings.lightning_chance = tonumber(settings:get("lightning_chance"))
-climatez.settings.dust_effect = settings:get_bool("dust_effect")
-
-local climate_max_height = tonumber(minetest.settings:get('cloud_height', true)) or 120
-local check_light = minetest.is_yes(minetest.settings:get_bool('light_roofcheck', true))
+climatez.settings = {
+	climate_min_height = tonumber(settings:get("climate_min_height")),
+	climate_max_height = tonumber(minetest.settings:get('climate_max_height', true)) or 120,
+	climate_change_ratio = tonumber(settings:get("climate_change_ratio")),
+	radius = tonumber(settings:get("climate_radius")),
+	climate_duration = tonumber(settings:get("climate_duration")),
+	duration_random_ratio = tonumber(settings:get("climate_duration_random_ratio")),
+	climate_period = tonumber(settings:get("climate_period")),
+	climate_rain_sound = settings:get_bool("climate_rain_sound"),
+	thunder_sound = settings:get_bool("thunder_sound"),
+	storm_chance = tonumber(settings:get("storm_chance")),
+	lightning = settings:get_bool("lightning"),
+	lightning_chance = tonumber(settings:get("lightning_chance")),
+	dust_effect = settings:get_bool("dust_effect"),
+}
 
 local timer = 0 -- A timer to create climates each x seconds an for lightning too.
 
 --Helper Functions
 
-function remove_table_by_key(tab, key)
+local function remove_table_by_key(tab, key)
 	local i = 0
 	local keys, values = {},{}
 	for k, v in pairs(tab) do
@@ -59,7 +59,7 @@ end
 local function player_inside_climate(player_pos)
 	--This function returns the climate_id if inside and true/false if the climate is enabled or not
 	--check altitude
-	if (player_pos.y < climatez.settings.climate_min_height) or (player_pos.y > climate_max_height) then
+	if (player_pos.y < climatez.settings.climate_min_height) or (player_pos.y > climatez.settings.climate_max_height) then
 		return false, nil, nil
 	end
 	--check if on water
@@ -112,6 +112,17 @@ local function has_light(minp, maxp)
 	return light
 end
 
+local function is_on_surface(player_pos)
+	local height = minetest.get_spawn_level(player_pos.x, player_pos.z)
+	--minetest.chat_send_all(tostring(height))
+	if not height then
+		return false
+	end
+	if (player_pos.y + 1.5) >= height then
+		return true
+	end
+end
+
 --DOWNFALLS REGISTRATIONS
 
 climatez.registered_downfalls = {}
@@ -125,20 +136,20 @@ register_downfall("rain", {
 	min_pos = {x = -15, y = 10, z = -15},
 	max_pos = {x = 15, y = 10, z = 15},
 	falling_speed = 10,
-	amount = 20,
+	amount = 8,
 	exptime = 1,
-	size = 1,
-	texture = "climatez_rain.png",
+	size = 2,
+	texture = {"climatez_rain.png", "climatez_rain2.png", "climatez_rain3.png"},
 })
 
 register_downfall("storm", {
 	min_pos = {x = -15, y = 20, z = -15},
 	max_pos = {x = 15, y = 20, z = 15},
 	falling_speed = 20,
-	amount = 30,
+	amount = 20,
 	exptime = 1,
-	size = 1,
-	texture = "climatez_rain.png",
+	size = 1.5,
+	texture = {"climatez_rain.png", "climatez_rain2.png", "climatez_rain3.png"},
 })
 
 register_downfall("snow", {
@@ -172,7 +183,7 @@ local function create_wind()
 	return wind
 end
 
-function get_player_wind(player_name)
+function climatez.get_player_wind(player_name)
 	local player = minetest.get_player_by_name(player_name)
 	if not player then
 		return
@@ -293,7 +304,6 @@ local function remove_climate_player_effects(player_name)
 		color = climatez.players[player_name].clouds_color,
 	})
 
-	local climate_id = climatez.players[player_name].climate_id
 	local downfall_type = climatez.players[player_name].downfall_type
 
 	local rain_sound_handle = climatez.players[player_name].rain_sound_handle
@@ -482,7 +492,7 @@ local climate = {
 		local maxp = vector.add(vector.add(_player_pos, downfall.max_pos), wind_pos)
 
 		--Check if in player in interiors or not
-		if check_light and not has_light(minp, maxp) then
+		if not has_light(minp, maxp) then
 			return
 		end
 
@@ -517,8 +527,10 @@ local climate = {
 			if lightning <= 0  then
 				local chance = math.random(climatez.settings.lightning_chance)
 				if chance == 1 then
-					show_lightning(_player_name)
-					minetest.after(0.15, remove_lightning, _player_name)
+					if is_on_surface(_player_pos) then
+						show_lightning(_player_name)
+						minetest.after(0.15, remove_lightning, _player_name)
+					end
 				end
 			end
 		end
@@ -545,9 +557,9 @@ minetest.register_globalstep(function(dtime)
 			local _climate = climatez.players[player_name]
 			if _climate and on_water then
 				remove_climate_player(player_name)
-			elseif climate_id and not(climate_disabled) and _climate then
+			elseif not(climate_disabled) and _climate then
 				local _climate_id = _climate.climate_id --check if player still inside the climate
-				if not(climate_id == _climate_id) then
+				if not(_climate_id == climate_id) then --the comparation should be in this order!!!
 					remove_climate_player(player_name)
 					--minetest.chat_send_all(player_name.." abandoned a climate")
 				end

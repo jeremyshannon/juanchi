@@ -1,5 +1,5 @@
 unused_args = false
-allow_defined_top = true
+allow_defined_top = false
 max_line_length = false
 
 globals = {

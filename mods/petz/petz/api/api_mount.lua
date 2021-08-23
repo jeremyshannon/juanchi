@@ -22,21 +22,10 @@ petz.mount = function(self, clicker, wielded_item, wielded_item_name)
 		elseif (self.saddle or self.saddlebag or self.wagon) and wielded_item_name == petz.settings.shears then
 			if self.wagon then
 				self.wagon:remove()
-				mokapi.drop_item(self, "petz:wagon", 1)
+				mokapi.drop_item(self, ItemStack("petz:wagon 1"))
 				self.wagon = nil
 			end
-			if self.saddle then
-				minetest.add_item(self.object:get_pos(), "petz:saddle")
-				mokapi.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
-				self.saddle = false
-				mobkit.remember(self, "saddle", self.saddle)
-			end
-			if self.saddlebag then
-				minetest.add_item(self.object:get_pos(), "petz:saddlebag")
-				mokapi.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
-				self.saddlebag = false
-				mobkit.remember(self, "saddlebag", self.saddlebag)
-			end
+			petz.free_saddles(self)
 			petz.set_properties(self, {textures = {"petz_"..self.type.."_"..self.skin_colors[self.texture_no]..".png"}})
 			return false
 		elseif (not(self.driver) and not(self.is_baby)) and ((wielded_item_name == "petz:saddle") or (wielded_item_name == "petz:saddlebag")) then -- Put on saddle if tamed
@@ -82,9 +71,7 @@ petz.put_saddle = function(self, clicker, wielded_item, wielded_item_name)
 	end
 	local texture = "petz_"..self.type.."_"..self.skin_colors[self.texture_no]..".png" .. "^petz_"..self.type.."_"..saddle_type..".png"..another_saddle
 	petz.set_properties(self, {textures = {texture}})
-	if not minetest.settings:get_bool("creative_mode") then
-		wielded_item:take_item()
-		clicker:set_wielded_item(wielded_item)
-	end
+	wielded_item:take_item()
+	clicker:set_wielded_item(wielded_item)
 	mokapi.make_sound("object", self.object, "petz_put_sound", petz.settings.max_hear_distance)
 end

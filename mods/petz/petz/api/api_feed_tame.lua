@@ -92,12 +92,9 @@ petz.tame_whip= function(self, hitter)
 end
 
 --Ants
-petz_feed_queen_ant= function(self, clicker, player_name, wielded_item)
-	local creative_mode = minetest.settings:get_bool("creative_mode")
-	if not creative_mode then -- if not in creative, take item
-		wielded_item:take_item()
-		clicker:set_wielded_item(wielded_item)
-	end
+petz.feed_queen_ant = function(self, clicker, player_name, wielded_item)
+	wielded_item:take_item()
+	clicker:set_wielded_item(wielded_item)
 	self.eggs_count = mobkit.remember(self, "eggs_count", 0)
 	minetest.chat_send_player(player_name, S("The Queen Ant will produce more eggs."))
 end

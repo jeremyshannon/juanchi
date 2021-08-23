@@ -1,7 +1,8 @@
 #  Drop Functions
 
-## mokapi.drop_item(self, item, num)
+## mokapi.drop_item(self, item_stack)
 Mob drops only one item.
+item_stack is a former ItemStack.
 
 ## mokapi.drop_items(self, killed_by_player)
 

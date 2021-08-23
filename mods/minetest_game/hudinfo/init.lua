@@ -42,6 +42,7 @@ local biome_description = {
 	swampz_shore = S("Swampz shore"),
 	temperate_rainforest = S("Temperate rainforest"),
 	salt_desert = S("Salt desert"),
+	redwood_forest = S("Redwood forest"),
 }
 
 local function get_biome_name(player)

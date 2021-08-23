@@ -1,4 +1,4 @@
-S = minetest.get_translator(minetest.get_current_modname())
+local S = minetest.get_translator(minetest.get_current_modname())
 
 minetest.register_node("bale:bale", {
 	description = S("Bale"),

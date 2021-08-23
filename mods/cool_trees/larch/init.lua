@@ -140,7 +140,6 @@ minetest.register_node("larch:moss", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	tiles = {"larch_moss.png"},
-	use_texture_alpha = "clip",
 	inventory_image = "larch_moss.png",
 	wield_image = "larch_moss.png",
 	node_box = {
@@ -178,15 +177,6 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "larch:wood",
 	burntime = 7,
-})
-
-
-minetest.register_lbm({
-	name = "larch:convert_larch_saplings_to_node_timer",
-	nodenames = {"larch:sapling"},
-	action = function(pos)
-		minetest.get_node_timer(pos):start(math.random(1200, 2400))
-	end
 })
 
 default.register_leafdecay({

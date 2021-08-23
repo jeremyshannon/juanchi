@@ -118,14 +118,6 @@ minetest.register_node("pineapple:sapling", {
 -- Craftitems
 --
 
-minetest.register_lbm({
-	name = "pineapple:convert_pineapple_saplings_to_node_timer",
-	nodenames = {"pineapple:sapling"},
-	action = function(pos)
-		minetest.get_node_timer(pos):start(math.random(1200, 2400))
-	end
-})
-
 if minetest.get_modpath("bonemeal") ~= nil then
 	bonemeal:add_sapling({
 		{"pineapple:sapling", grow_new_pineapple_tree, "soil"},

@@ -146,7 +146,6 @@ minetest.register_node("ebony:creeper", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	tiles = {"ebony_creeper.png"},
-	use_texture_alpha = "clip",
 	inventory_image = "ebony_creeper.png",
 	wield_image = "ebony_creeper.png",
 	node_box = {
@@ -166,7 +165,6 @@ minetest.register_node("ebony:creeper_leaves", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	tiles = {"ebony_creeper_leaves.png"},
-	use_texture_alpha = "clip",
 	inventory_image = "ebony_creeper_leaves.png",
 	wield_image = "ebony_creeper_leaves.png",
 	node_box = {
@@ -186,7 +184,6 @@ minetest.register_node("ebony:liana", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	tiles = {"ebony_liana.png"},
-	use_texture_alpha = "clip",
 	inventory_image = "ebony_liana.png",
 	wield_image = "ebony_liana.png",
 	node_box = {
@@ -247,15 +244,6 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "ebony:wood",
 	burntime = 7,
-})
-
-
-minetest.register_lbm({
-	name = "ebony:convert_ebony_saplings_to_node_timer",
-	nodenames = {"ebony:sapling"},
-	action = function(pos)
-		minetest.get_node_timer(pos):start(math.random(1200, 2400))
-	end
 })
 
 default.register_leafdecay({

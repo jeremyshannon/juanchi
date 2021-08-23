@@ -42,4 +42,5 @@ assert(loadfile(modpath .. "/api/api_lifetime.lua"))()
 assert(loadfile(modpath .. "/api/api_back_home.lua"))()
 assert(loadfile(modpath .. "/api/api_on_deactivate.lua"))()
 assert(loadfile(modpath .. "/api/api_wagon.lua"))()
+assert(loadfile(modpath .. "/api/api_saddles.lua"))()
 

@@ -16,6 +16,8 @@ for i=1, 3 do
 	local aggressive
 	local is_baby
 	local is_male
+	local sounds
+	local backface_culling
 	if i == 1 then
 		pet_name = "hen"
 		description = "Hen"
