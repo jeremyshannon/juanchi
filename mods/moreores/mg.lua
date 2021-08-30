@@ -1,7 +1,7 @@
 --[[
 More Ores: `mg` mod support
 
-Copyright © 2011-2019 Hugo Locurcio and contributors.
+Copyright © 2011-2020 Hugo Locurcio and contributors.
 Licensed under the zlib license. See LICENSE.md for more information.
 --]]
 
@@ -44,7 +44,7 @@ mg.register_ore({
 	wherein = "default:stone",
 	seeddiff = 10,
 	maxvdistance = 10.5,
-	maxheight = -384,
+	maxheight = -512,
 	seglenghtn = 2,
 	seglenghtdev = 4,
 	sizen = 12,

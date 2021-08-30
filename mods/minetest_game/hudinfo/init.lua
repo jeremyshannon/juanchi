@@ -1,7 +1,8 @@
 local S = minetest.get_translator(minetest.get_current_modname())
 
-local hbinfo = {}
-hbinfo.players = {}
+local hbinfo = {
+	players = {}
+}
 
 minetest.register_on_leaveplayer(function(player)
 	hbinfo.players[player:get_player_name()] = nil
@@ -39,7 +40,7 @@ local biome_description = {
 	desert_ocean = S("Desert ocean"),
 	ice_sheet_ocean = S("Ice sheet ocean"),
 	swampz = S("Swamp"),
-	swampz_shore = S("Swampz shore"),
+	swampz_shore = S("Swamp shore"),
 	temperate_rainforest = S("Temperate rainforest"),
 	salt_desert = S("Salt desert"),
 	redwood_forest = S("Redwood forest"),
@@ -54,35 +55,47 @@ local function get_biome_name(player)
 	return description
 end
 
+local function compose_pos(player)
+	local pos = player:get_pos()
+	local pos_str = "["..tostring(math.round(pos.x)).."x, "
+		..tostring(math.round(pos.z)).."z] ("
+		..tostring(math.round(pos.y)).."y)"
+	return pos_str
+end
+
 minetest.register_on_joinplayer(function(player)
-	local player_name = player:get_player_name()
 	local _biome_name = get_biome_name(player)
 	local _idx = player:hud_add({
 		hud_elem_type = "text",
 		number = "0xFFFFFF",
 		position = {x = 0, y = 1},
-		text = _biome_name,
+		text = _biome_name.." "..compose_pos(player),
 		alignment = {x = 1, y = -1},
 		scale = {x = 100, y = 100},
 	})
+	local player_name = player:get_player_name()
 	hbinfo.players[player_name] = {idx = _idx, biome_name = _biome_name}
 end)
 
 local timer = 0
 minetest.register_globalstep(function(dtime)
 	timer = timer + dtime;
-	if timer >= 1 then
+	if timer >= 0.5 then
 		for _, player in pairs(minetest.get_connected_players()) do
-			local biome_name = get_biome_name(player)
 			local player_name = player:get_player_name()
-			if hbinfo.players[player_name] and not(biome_name == hbinfo.players[player_name].biome_name) then
-				hbinfo.players[player_name].biome_name = biome_name
-				player:hud_change(hbinfo.players[player_name].idx, "text", biome_name)
+			if timer >= 1 then
+				local biome_name = get_biome_name(player)
+				if hbinfo.players[player_name]
+					and not(biome_name == hbinfo.players[player_name].biome_name) then
+						hbinfo.players[player_name].biome_name = biome_name
+				end
+				timer = 0
 			end
-		end
-		timer = 0
+			if hbinfo.players[player_name] then
+				player:hud_change(hbinfo.players[player_name].idx, "text",
+					hbinfo.players[player_name].biome_name.." "..compose_pos(player))
+			end
+		end --for
 	end
+
 end)
-
-
-
