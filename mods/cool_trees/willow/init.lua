@@ -72,7 +72,7 @@ minetest.register_node("willow:sapling", {
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(math.random(2400,4800))
+		minetest.get_node_timer(pos):start(math.random(2400, 4800))
 	end,
 
 	on_place = function(itemstack, placer, pointed_thing)
@@ -212,4 +212,9 @@ if minetest.get_modpath("bonemeal") ~= nil then
 	bonemeal:add_sapling({
 		{"willow:sapling", grow_new_willow_tree, "soil"},
 	})
+end
+
+-- Support for flowerpot
+if minetest.global_exists("flowerpot") then
+	flowerpot.register_node("willow:sapling")
 end

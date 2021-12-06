@@ -142,6 +142,7 @@ minetest.register_node("baldcypress:dry_branches", {
 	tiles = {"baldcypress_dry_branches.png"},
 	inventory_image = "baldcypress_dry_branches.png",
 	wield_image = "baldcypress_dry_branches.png",
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 0.49, 0.5, 0.5, 0.5}
@@ -161,6 +162,7 @@ minetest.register_node("baldcypress:liana", {
 	tiles = {"baldcypress_liana.png"},
 	inventory_image = "baldcypress_liana.png",
 	wield_image = "baldcypress_liana.png",
+	use_texture_alpha = "clip",
 	is_ground_content = false,
 	node_box = {
 		type = "fixed",
@@ -253,4 +255,9 @@ if minetest.get_modpath("bonemeal") ~= nil then
 	bonemeal:add_sapling({
 		{"baldcypress:sapling", grow_new_baldcypress_tree, "soil"},
 	})
+end
+
+-- Support for flowerpot
+if minetest.global_exists("flowerpot") then
+	flowerpot.register_node("baldcypress:sapling")
 end

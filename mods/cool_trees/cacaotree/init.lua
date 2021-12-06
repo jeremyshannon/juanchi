@@ -226,6 +226,7 @@ minetest.register_node("cacaotree:pod", {
 			{-0.25, -0.5, 0, 0.25, 0.0625, 0.5},
 		},
 	},
+	use_texture_alpha = "clip",
 	drop = "cacaotree:cacao_beans 10",
 	groups = {fleshy = 3, dig_immediate = 3, flammable = 2,
 		leafdecay = 3, leafdecay_drop = 1},
@@ -420,6 +421,7 @@ minetest.register_node("cacaotree:liana", {
 	tiles = {"cacaotree_liana.png"},
 	inventory_image = "cacaotree_liana.png",
 	wield_image = "cacaotree_liana.png",
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 0.0, 0.5, 0.5, 0.0}
@@ -439,6 +441,7 @@ minetest.register_node("cacaotree:flower_creeper", {
 	tiles = {"cacaotree_flower_creeper.png"},
 	inventory_image = "cacaotree_flower_creeper.png",
 	wield_image = "cacaotree_flower_creeper.png",
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 0.49, 0.5, 0.5, 0.5}
@@ -529,4 +532,9 @@ if minetest.get_modpath("bonemeal") ~= nil then
 	bonemeal:add_sapling({
 		{"cacaotree:sapling", grow_new_cacao_tree, "soil"},
 	})
+end
+
+-- Support for flowerpot
+if minetest.global_exists("flowerpot") then
+	flowerpot.register_node("cacaotree:sapling")
 end

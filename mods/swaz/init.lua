@@ -17,8 +17,8 @@ minetest.register_biome({
 	node_stone = "swaz:limestone",
 	y_max = 7,
 	y_min = 1,
-	heat_point = 80,
-	humidity_point = 89,
+	heat_point = 80.1,
+	humidity_point = 89.1,
 	vertical_blend = 0,
 })
 
@@ -35,8 +35,8 @@ minetest.register_biome({
 	node_water_top = "swaz:water_source",
 	y_max = 0,
 	y_min = -5,
-	heat_point = 79,
-	humidity_point = 90,
+	heat_point = 79.1,
+	humidity_point = 90.1,
 	vertical_blend = 0,
 })
 
@@ -226,6 +226,27 @@ minetest.register_node("swaz:swamp_grass", {
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 0.0, 4 / 16},
 	},
 })
+
+minetest.register_node("swaz:tall_grass", {
+	description = S("Swamp Tall Grass"),
+	drawtype = "plantlike",
+	waving = 1,
+	visual_scale = 1.25,
+	tiles = {"swaz_tall_grass.png"},
+	inventory_image = "swaz_tall_grass.png",
+	wield_image = "swaz_tall_grass.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	groups = {snappy = 3, flora = 1, attached_node = 1, flammable = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 0.0, 4 / 16},
+	},
+})
+
 
 minetest.register_node("swaz:pampas_grass", {
 	description = S("Pampas Grass"),
@@ -656,7 +677,29 @@ if mg_name ~= "v6" and mg_name ~= "singlenode" then
 			offset = 0.8,
 			scale = 0.08,
 			spread = {x = 250, y = 250, z = 250},
-			seed = 2,
+			seed = 233,
+			octaves = 3,
+			persist = 0.66
+		},
+		y_min = 1,
+		y_max = 80,
+		spawn_by = "swaz:water_source",
+		num_spawn_by = 1,
+		--num_spawn_by = 8,
+	})
+
+	minetest.register_decoration({
+		decoration = "swaz:tall_grass",
+		deco_type = "simple",
+		place_on = "swaz:silt_with_grass",
+		sidelen = 16,
+		fill_ratio = 2.0,
+		biomes = {"swampz"},
+		noise_params = {
+			offset = 0.8,
+			scale = 0.08,
+			spread = {x = 250, y = 250, z = 250},
+			seed = 2223,
 			octaves = 3,
 			persist = 0.66
 		},

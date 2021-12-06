@@ -1,8 +1,9 @@
 unused_args = false
-allow_defined_top = true
+allow_defined_top = false
 
 globals = {
     "minetest",
+    "jonez",
     "stairs",
     "xpanes"
 }

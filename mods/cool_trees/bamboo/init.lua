@@ -282,3 +282,8 @@ if minetest.get_modpath("moreblocks") then
 		sounds = default.node_sound_wood_defaults(),
 	})
 end
+
+-- Support for flowerpot
+if minetest.global_exists("flowerpot") then
+	flowerpot.register_node("bamboo:sprout")
+end

@@ -129,9 +129,9 @@ if minetest.get_modpath("default") then
 		ore_type        = "blob",
 		ore             = "oleo:crude_source",
 		wherein         = {"default:stone"},
-		clust_scarcity  = 64 * 64 * 64,
-		clust_size      = 5,
-		y_max           = -20,
+		clust_scarcity  = 12 * 12 * 12,
+		clust_size      = 50,
+		y_max           = -128,
 		y_min           = -31000,
 		noise_threshold = 0.0,
 		noise_params    = {
@@ -143,6 +143,8 @@ if minetest.get_modpath("default") then
 			persist = 0.0
 		},
 		biomes = {
+			"underground",
+			"the_depths",
 			"taiga_ocean",
 			"snowy_grassland_ocean",
 			"grassland_ocean",

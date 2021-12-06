@@ -304,3 +304,8 @@ if minetest.get_modpath("doors") ~= nil then
 	})
 end
 
+
+-- Support for flowerpot
+if minetest.global_exists("flowerpot") then
+	flowerpot.register_node("birch:sapling")
+end

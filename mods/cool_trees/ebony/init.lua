@@ -46,7 +46,7 @@ if mg_name ~= "v6" and mg_name ~= "singlenode" then
 		schematic = modpath.."/schematics/ebony.mts",
 		flags = "place_center_x, place_center_z, force_placement",
 		rotation = "random",
-		place_offset_y = -1,
+		place_offset_y = 0,
 	})
 end
 
@@ -64,6 +64,7 @@ minetest.register_node("ebony:sapling", {
 	sunlight_propagates = true,
 	walkable = false,
 	on_timer = grow_new_ebony_tree,
+	use_texture_alpha = "clip",
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
@@ -148,6 +149,7 @@ minetest.register_node("ebony:creeper", {
 	tiles = {"ebony_creeper.png"},
 	inventory_image = "ebony_creeper.png",
 	wield_image = "ebony_creeper.png",
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 0.49, 0.5, 0.5, 0.5}
@@ -167,6 +169,7 @@ minetest.register_node("ebony:creeper_leaves", {
 	tiles = {"ebony_creeper_leaves.png"},
 	inventory_image = "ebony_creeper_leaves.png",
 	wield_image = "ebony_creeper_leaves.png",
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 0.49, 0.5, 0.5, 0.5}
@@ -186,6 +189,7 @@ minetest.register_node("ebony:liana", {
 	tiles = {"ebony_liana.png"},
 	inventory_image = "ebony_liana.png",
 	wield_image = "ebony_liana.png",
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 0.0, 0.5, 0.5, 0.0}
@@ -299,4 +303,9 @@ if minetest.get_modpath("bonemeal") ~= nil then
 	bonemeal:add_sapling({
 		{"ebony:sapling", grow_new_ebony_tree, "soil"},
 	})
+end
+
+-- Support for flowerpot
+if minetest.global_exists("flowerpot") then
+	flowerpot.register_node("ebony:sapling")
 end

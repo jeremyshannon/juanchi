@@ -291,3 +291,8 @@ if minetest.get_modpath("cork") ~= nil then
 		burntime = 25,
 	})
 end
+
+-- Support for flowerpot
+if minetest.global_exists("flowerpot") then
+	flowerpot.register_node("lemontree:sapling")
+end

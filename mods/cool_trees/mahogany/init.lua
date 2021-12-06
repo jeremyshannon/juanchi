@@ -62,6 +62,7 @@ minetest.register_node("mahogany:sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
+	use_texture_alpha = "clip",
 	on_timer = grow_new_mahogany_tree,
 	selection_box = {
 		type = "fixed",
@@ -147,6 +148,7 @@ minetest.register_node("mahogany:creeper", {
 	tiles = {"mahogany_creeper.png"},
 	inventory_image = "mahogany_creeper.png",
 	wield_image = "mahogany_creeper.png",
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 0.49, 0.5, 0.5, 0.5}
@@ -166,6 +168,7 @@ minetest.register_node("mahogany:flower_creeper", {
 	tiles = {"mahogany_flower_creeper.png"},
 	inventory_image = "mahogany_flower_creeper.png",
 	wield_image = "mahogany_flower_creeper.png",
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 0.49, 0.5, 0.5, 0.5}
@@ -185,6 +188,7 @@ minetest.register_node("mahogany:hanging_creeper", {
 	tiles = {"mahogany_hanging_creeper.png"},
 	inventory_image = "mahogany_hanging_creeper.png",
 	wield_image = "mahogany_hanging_creeper.png",
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 0.0, 0.5, 0.5, 0.0}
@@ -275,4 +279,9 @@ if minetest.get_modpath("bonemeal") ~= nil then
 	bonemeal:add_sapling({
 		{"mahogany:sapling", grow_new_mahogany_tree, "soil"},
 	})
+end
+
+-- Support for flowerpot
+if minetest.global_exists("flowerpot") then
+	flowerpot.register_node("mahogany:sapling")
 end

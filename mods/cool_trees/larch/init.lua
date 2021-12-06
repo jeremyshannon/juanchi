@@ -142,6 +142,7 @@ minetest.register_node("larch:moss", {
 	tiles = {"larch_moss.png"},
 	inventory_image = "larch_moss.png",
 	wield_image = "larch_moss.png",
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 0.49, 0.5, 0.5, 0.5}
@@ -250,3 +251,8 @@ if minetest.get_modpath("doors") ~= nil then
 	})
 end
 
+
+-- Support for flowerpot
+if minetest.global_exists("flowerpot") then
+	flowerpot.register_node("larch:sapling")
+end

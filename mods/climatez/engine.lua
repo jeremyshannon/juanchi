@@ -23,6 +23,10 @@ climatez.settings = {
 	lightning = settings:get_bool("lightning"),
 	lightning_chance = tonumber(settings:get("lightning_chance")),
 	dust_effect = settings:get_bool("dust_effect"),
+	rain_particles = tonumber(settings:get("rain_particles")) or 15,
+	rain_falling_speed = tonumber(settings:get("rain_falling_speed")) or 15,
+	lightning_duration = tonumber(settings:get("lightning_duration")) or 0.15,
+	rain_sound_gain = tonumber(settings:get("rain_sound_gain")) or 0.35,
 }
 
 local timer = 0 -- A timer to create climates each x seconds an for lightning too.
@@ -118,7 +122,7 @@ local function is_on_surface(player_pos)
 	if not height then
 		return false
 	end
-	if (player_pos.y + 1.5) >= height then
+	if (player_pos.y + 5) >= height then
 		return true
 	end
 end
@@ -135,10 +139,10 @@ end
 register_downfall("rain", {
 	min_pos = {x = -15, y = 10, z = -15},
 	max_pos = {x = 15, y = 10, z = 15},
-	falling_speed = 10,
-	amount = 8,
+	falling_speed = climatez.settings.rain_falling_speed,
+	amount = climatez.settings.rain_particles,
 	exptime = 1,
-	size = 2,
+	size = 1.75,
 	texture = {"climatez_rain.png", "climatez_rain2.png", "climatez_rain3.png"},
 })
 
@@ -234,6 +238,23 @@ local function remove_lightning(player_name)
 	meta:set_int("climatez:lightning", -1)
 end
 
+-- raind sounds
+
+local function start_rain_sound(player_name)
+	local rain_sound_handle = minetest.sound_play("climatez_rain", {
+		to_player = player_name,
+		loop = true,
+		gain = climatez.settings.rain_sound_gain
+	})
+	climatez.players[player_name].rain_sound_handle = rain_sound_handle
+end
+
+local function stop_rain_sound(player_name, rain_sound_handle)
+	minetest.sound_stop(rain_sound_handle)
+	climatez.players[player_name].rain_sound_handle = nil
+end
+
+
 -- CLIMATE PLAYERS FUNCTIONS
 
 local function add_climate_player(player_name, climate_id, downfall_type)
@@ -278,13 +299,9 @@ local function add_climate_player(player_name, climate_id, downfall_type)
 		})
 	end
 
-	if climatez.settings.climate_rain_sound and (downfall_type == "rain" or downfall_type== "storm") then
-		local rain_sound_handle = minetest.sound_play("climatez_rain", {
-			to_player = player_name,
-			loop = true,
-			gain = 1.0,
-		})
-		climatez.players[player_name].rain_sound_handle = rain_sound_handle
+	if climatez.settings.climate_rain_sound and (downfall_type == "rain" or downfall_type== "storm")
+		and is_on_surface(player:get_pos()) then
+			start_rain_sound(player_name)
 	end
 
 	--minetest.chat_send_all(player_name.." added to climate "..tostring(climate_id))
@@ -309,7 +326,7 @@ local function remove_climate_player_effects(player_name)
 	local rain_sound_handle = climatez.players[player_name].rain_sound_handle
 	if rain_sound_handle and climatez.settings.climate_rain_sound
 		and (downfall_type == "rain" or downfall_type == "storm") then
-			minetest.sound_stop(rain_sound_handle)
+			stop_rain_sound(player_name, rain_sound_handle)
 	end
 
 	if downfall_type == "sand" and climatez.settings.dust_effect then
@@ -529,10 +546,20 @@ local climate = {
 				if chance == 1 then
 					if is_on_surface(_player_pos) then
 						show_lightning(_player_name)
-						minetest.after(0.15, remove_lightning, _player_name)
+						minetest.after(climatez.settings.lightning_duration, remove_lightning, _player_name)
 					end
 				end
 			end
+		end
+
+		if climatez.settings.climate_rain_sound
+			and (self.downfall_type == "rain" or self.downfall_type == "storm") then
+				local rain_sound_handle = climatez.players[_player_name].rain_sound_handle
+				if rain_sound_handle and not(is_on_surface(_player_pos)) then
+					stop_rain_sound(_player_name, rain_sound_handle)
+				elseif not(rain_sound_handle) and is_on_surface(_player_pos) then
+					start_rain_sound(_player_name)
+				end
 		end
 
 		--minetest.chat_send_all("Climate created by ".._player_name)

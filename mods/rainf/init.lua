@@ -45,7 +45,6 @@ minetest.register_node("rainf:meadow", {
 		{name = "rainf_dirt.png^rainf_dirt_with_grass_side.png",
 			tileable_vertical = false}},
 	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
-	drop = "swaz:mud",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.25},
 	}),
@@ -57,7 +56,6 @@ minetest.register_node("rainf:blossom_meadow", {
 		{name = "rainf_dirt.png^rainf_dirt_with_grass_side.png",
 			tileable_vertical = false}},
 	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
-	drop = "swaz:mud",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.25},
 	}),
@@ -68,7 +66,6 @@ minetest.register_node("rainf:meadow_with_mud", {
 	tiles = {"rainf_meadow_with_mud.png", "rainf_dirt.png",
 				"rainf_dirt.png"},
 	groups = {crumbly = 3},
-	drop = "swaz:mud",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.25},
 	}),
@@ -442,9 +439,9 @@ if mg_name ~= "v6" and mg_name ~= "singlenode" then
 		sidelen = 16,
 		noise_params = {
 			offset = 0.0009,
-			scale = 0.005,
+			scale = 0.0009,
 			spread = {x = 250, y = 250, z = 250},
-			seed = 2,
+			seed = 2345,
 			octaves = 3,
 			persist = 0.66
 		},
@@ -452,13 +449,17 @@ if mg_name ~= "v6" and mg_name ~= "singlenode" then
 		height = 2,
 		y_min = 2,
 		y_max = 1000,
-		place_offset_y = 0,
+		place_offset_y = -1,
 		schematic = {
-			size = {x = 4, y = 1, z = 4},
+			size = {x = 4, y = 2, z = 4},
 			data = {
+				{name = "rainf:meadow_with_mud"}, {name = "rainf:meadow_with_mud"}, {name = "rainf:meadow_with_mud"},{name = "rainf:meadow_with_mud"},
 				{name = "rainf:meadow"}, {name = "rainf:meadow"}, {name = "rainf:meadow"},{name = "rainf:meadow"},
-				{name = "rainf:meadow"}, {name = water_type}, {name = water_type},{name = "rainf:meadow"},
-				{name = "rainf:meadow"}, {name = water_type}, {name = water_type},{name = "rainf:meadow"},
+				{name = "rainf:meadow_with_mud"}, {name = "rainf:meadow_with_mud"}, {name = "rainf:meadow_with_mud"},{name = "rainf:meadow_with_mud"},
+				{name = "rainf:meadow"}, {name = "default:water_source"}, {name = "default:water_source"},{name = "rainf:meadow"},
+				{name = "rainf:meadow_with_mud"}, {name = "rainf:meadow_with_mud"}, {name = "rainf:meadow_with_mud"},{name = "rainf:meadow_with_mud"},
+				{name = "rainf:meadow"}, {name = "default:water_source"}, {name = "default:water_source"},{name = "rainf:meadow"},
+				{name = "rainf:meadow_with_mud"}, {name = "rainf:meadow_with_mud"}, {name = "rainf:meadow_with_mud"},{name = "rainf:meadow_with_mud"},
 				{name = "rainf:meadow"}, {name = "rainf:meadow"}, {name = "rainf:meadow"},{name = "rainf:meadow"},
 			}
 		},
@@ -761,20 +762,22 @@ if mg_name ~= "v6" and mg_name ~= "singlenode" then
 	minetest.register_decoration({
 		decoration = "rainf:hyacinth",
 		deco_type = "simple",
-		place_on = "rainf:meadow",
+		place_on = "rainf:meadow_with_mud",
 		sidelen = 16,
-		fill_ratio = 0.05,
+		fill_ratio = 0.3,
 		biomes = {"rainf"},
 		noise_params = {
-			offset = 0.005,
-			scale = 0.008,
+			offset = 0.1,
+			scale = 0.08,
 			spread = {x = 250, y = 250, z = 250},
-			seed = 452,
+			seed = 4572,
 			octaves = 3,
 			persist = 0.66
 		},
 		y_min = 1,
 		y_max = 80,
+		spawn_by = "default:water_source",
+		num_spawn_by = 1,
 	})
 
 	-- Champignon
