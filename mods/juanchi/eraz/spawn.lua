@@ -14,7 +14,7 @@ eraz.spawn = function(spawn_pos, limit_max_mobs, abr, liquidflag)
 	local loot_description = eraz.loots[ent_ref.loot].description or S("unknown stuff")
 	if eraz.settings.spawn_announce then
 		minetest.chat_send_all(S("A new merchant has just arrived at")
-			.." ("..tostring(math.round(spawn_pos.x))..", "..tostring(math.round(spawn_pos.z))
+			.." ("..tostring(round(spawn_pos.x))..", "..tostring(round(spawn_pos.z))
 			.."),".." "..S("bringing").." "..loot_description
 		)
 	end

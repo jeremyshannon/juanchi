@@ -46,6 +46,10 @@ local biome_description = {
 	redwood_forest = S("Redwood forest"),
 }
 
+local function round(x)
+	return x>=0 and math.floor(x+0.5) or math.ceil(x-0.5)
+end
+
 local function get_biome_name(player)
 	local biome_name = minetest.get_biome_name(minetest.get_biome_data(player:get_pos()).biome) or ""
 	if biome_name == "" then
@@ -57,9 +61,9 @@ end
 
 local function compose_pos(player)
 	local pos = player:get_pos()
-	local pos_str = "["..tostring(math.round(pos.x)).."x, "
-		..tostring(math.round(pos.z)).."z] ("
-		..tostring(math.round(pos.y)).."y)"
+	local pos_str = "["..tostring(round(pos.x)).."x, "
+		..tostring(round(pos.z)).."z] ("
+		..tostring(round(pos.y)).."y)"
 	return pos_str
 end
 
