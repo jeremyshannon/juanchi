@@ -1,5 +1,9 @@
 local S = ...
 
+local function round(x)
+	return x>=0 and math.floor(x+0.5) or math.ceil(x-0.5)
+end
+
 --SPAWN
 
 eraz.spawn = function(spawn_pos, limit_max_mobs, abr, liquidflag)
