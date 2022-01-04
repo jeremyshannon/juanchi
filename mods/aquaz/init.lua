@@ -298,6 +298,26 @@ aquaz.grass= {
 	special_tiles = "aquaz_stars_anemons_2.png",
 	drop = "aquaz:tall_grass"
 	},
+	{
+	name = "aquaz:aquamarine_coral_branch",
+	description= "Aquamarine Coral Branch",
+	special_tiles = "aquaz_aquamarine_coral_branch.png",
+	},
+	{
+	name = "aquaz:pink_birdnest_coral",
+	description= "Pink Birdnest Coral",
+	special_tiles = "aquaz_pink_birdnest_coral.png",
+	},
+	{
+	name = "aquaz:sea_cucumbers",
+	description= "Sea Cucumbers",
+	special_tiles = "aquaz_sea_cucumbers.png",
+	},
+	{
+	name = "aquaz:sword_plant",
+	description= "Aquatic Sword Plant",
+	special_tiles = "aquaz_sword_plant.png",
+	},
 }
 
 for i = 1, #aquaz.grass do
@@ -308,7 +328,7 @@ for i = 1, #aquaz.grass do
 		drop = aquaz.grass[i].name
 	end
 	minetest.register_node(aquaz.grass[i].name, {
-		description = aquaz.grass[i].description,
+		description = S(aquaz.grass[i].description),
 		drawtype = "plantlike_rooted",
 		waving = 1,
 		paramtype = "light",
@@ -410,7 +430,7 @@ if mg_name ~= "v6" and mg_name ~= "singlenode" then
 			offset = 0.0005,
 			scale = 0.04,
 			spread = {x = 250, y = 250, z = 250},
-			seed = 733,
+			seed = 343,
 			octaves = 3,
 			persist = 0.66
 		},
@@ -439,6 +459,118 @@ if mg_name ~= "v6" and mg_name ~= "singlenode" then
 			scale = 0.04,
 			spread = {x = 250, y = 250, z = 250},
 			seed = 733,
+			octaves = 3,
+			persist = 0.66
+		},
+		biomes = {
+			"grassland_ocean",
+			"coniferous_forest_ocean",
+			"deciduous_forest_ocean"
+		},
+		y_max = -5,
+		y_min = -10,
+		flags = "force_placement",
+		param2 = 48,
+		param2_max = 96,
+	})
+	minetest.register_decoration({
+		name = "aquaz:aquamarine_coral_branch",
+		decoration = {
+			"aquaz:aquamarine_coral_branch",
+		},
+		deco_type = "simple",
+		place_on = {"default:sand"},
+		place_offset_y = -1,
+		sidelen = 16,
+		noise_params = {
+			offset = 0.0005,
+			scale = 0.04,
+			spread = {x = 250, y = 250, z = 250},
+			seed = 82,
+			octaves = 3,
+			persist = 0.66
+		},
+		biomes = {
+			"grassland_ocean",
+			"coniferous_forest_ocean",
+			"deciduous_forest_ocean"
+		},
+		y_max = -5,
+		y_min = -10,
+		flags = "force_placement",
+		param2 = 48,
+		param2_max = 96,
+	})
+	minetest.register_decoration({
+		name = "aquaz:pink_birdnest_coral",
+		decoration = {
+			"aquaz:pink_birdnest_coral",
+		},
+		deco_type = "simple",
+		place_on = {"default:sand"},
+		place_offset_y = -1,
+		sidelen = 16,
+		noise_params = {
+			offset = 0.0005,
+			scale = 0.04,
+			spread = {x = 250, y = 250, z = 250},
+			seed = 1729,
+			octaves = 3,
+			persist = 0.66
+		},
+		biomes = {
+			"grassland_ocean",
+			"coniferous_forest_ocean",
+			"deciduous_forest_ocean"
+		},
+		y_max = -5,
+		y_min = -10,
+		flags = "force_placement",
+		param2 = 48,
+		param2_max = 96,
+	})
+	minetest.register_decoration({
+		name = "aquaz:sea_cucumbers",
+		decoration = {
+			"aquaz:sea_cucumbers",
+		},
+		deco_type = "simple",
+		place_on = {"default:sand"},
+		place_offset_y = -1,
+		sidelen = 16,
+		noise_params = {
+			offset = 0.0005,
+			scale = 0.04,
+			spread = {x = 250, y = 250, z = 250},
+			seed = 568,
+			octaves = 3,
+			persist = 0.66
+		},
+		biomes = {
+			"grassland_ocean",
+			"coniferous_forest_ocean",
+			"deciduous_forest_ocean"
+		},
+		y_max = -5,
+		y_min = -10,
+		flags = "force_placement",
+		param2 = 48,
+		param2_max = 96,
+	})
+	minetest.register_decoration({
+		name = "aquaz:sword_plant",
+		decoration = {
+			"aquaz:sword_plant",
+		},
+		deco_type = "simple",
+		place_on = {"default:sand"},
+		place_offset_y = -1,
+		sidelen = 16,
+		noise_params = {
+			offset = 0.0005,
+			scale = 0.04,
+			spread = {x = 250, y = 250, z = 250},
+			seed = 568,
 			octaves = 3,
 			persist = 0.66
 		},

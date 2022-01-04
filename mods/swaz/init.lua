@@ -47,7 +47,7 @@ minetest.register_node("swaz:silt_with_grass", {
 	tiles = {"swaz_grass.png", "swaz_silt.png",
 		{name = "swaz_silt.png^swaz_silt_with_grass_side.png",
 			tileable_vertical = false}},
-	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
+	groups = {crumbly = 3, soil = 1},
 	drop = "swaz:mud",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.25},

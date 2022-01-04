@@ -16,12 +16,9 @@ function petz.bh_breed(self, pos)
 				local copulation_distance = petz.settings[self.type.."_copulation_distance"] or 1
 				if vector.distance(pos, couple_pos) <= copulation_distance then --if close
 					--Changue some vars
-					self.is_rut = false
-					mobkit.remember(self, "is_rut", self.is_rut)
-					couple.is_rut = false
-					mobkit.remember(couple, "is_rut", couple.is_rut)
-					couple.is_pregnant = true
-					mobkit.remember(couple, "is_pregnant", couple.is_pregnant)
+					self.is_rut = mobkit.remember(self, "is_rut", false)
+					couple.is_rut = mobkit.remember(couple, "is_rut", false)
+					couple.is_pregnant = mobkit.remember(couple, "is_pregnant", true)
 					couple.father_genes = mobkit.remember(couple, "father_genes", self.genes)
 					petz.do_particles_effect(couple.object, couple.object:get_pos(), "pregnant".."_"..couple.type)
 				end

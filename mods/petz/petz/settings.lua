@@ -79,6 +79,17 @@ local settings_def = {
 	split = true,
 	default = "",
 	},
+	--Damage Engine
+	{
+	name = "check_enable_damage",
+	type = "boolean",
+	default = false,
+	},
+	{
+	name = "no_damage_in_protected",
+	type = "boolean",
+	default = false,
+	},
 	--Enviromental Damage
 	{
 	name = "air_damage",
@@ -244,6 +255,11 @@ local settings_def = {
 	name = "growth_time",
 	type = "number",
 	default = 1200,
+	},
+	{
+	name = "seed_only_owners",
+	type = "boolean",
+	default = true,
 	},
 	--Punch Effect
 	{

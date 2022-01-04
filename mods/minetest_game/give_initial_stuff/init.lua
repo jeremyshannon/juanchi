@@ -1,8 +1,8 @@
 -- gave_initial_stuff/init.lua
 
 local stuff_string = minetest.settings:get("initial_stuff") or
-		"default:pick_wood,default:axe_wood,default:shovel_wood,default:apple,"..
-		"farming:bread"
+		"default:pick_wood,default:axe_wood,default:shovel_wood,default:apple 7,"..
+		"farming:bread 5"
 
 give_initial_stuff = {
 	items = {}

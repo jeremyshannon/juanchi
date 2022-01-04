@@ -168,7 +168,7 @@ minetest.register_node("cherrytree:blossom_leaves", {
 	drop = {
 		max_items = 1,
 		items = {
-			{items = {"cherrytree:sapling"}, rarity = 20},
+			{items = {"cherrytree:sapling"}, rarity = 12},
 			{items = {"cherrytree:blossom_leaves"}}
 		}
 	},

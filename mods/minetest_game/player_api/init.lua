@@ -56,6 +56,11 @@ minetest.register_on_joinplayer(function(player)
 	local player_name = player:get_player_name()
 	player_api.player_attached[player_name] = false
 	local gender = player_api.get_gender(player)
+	if minetest.get_modpath("ptol") ~= nil then
+		if player:get_meta():get_int("ptol:level") == 0 then
+			player:get_meta():set_int("ptol:level", 4)
+		end
+	end
 	if gender == "" then
 		player_api.select_gender(player_name) --select the gender
 	else

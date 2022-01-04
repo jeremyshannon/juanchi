@@ -145,7 +145,7 @@ minetest.register_node("clementinetree:leaves", {
 	drop = {
 		max_items = 1,
 		items = {
-			{items = {"clementinetree:sapling"}, rarity = 20},
+			{items = {"clementinetree:sapling"}, rarity = 13},
 			{items = {"clementinetree:leaves"}}
 		}
 	},

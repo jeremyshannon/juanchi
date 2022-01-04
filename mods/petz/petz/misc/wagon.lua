@@ -46,6 +46,8 @@ minetest.register_craftitem("petz:wagon", {
 			z = pt_above.z,
 		}
 		minetest.add_entity(pos2, "petz:wagon", nil)
+		itemstack:take_item()
+		return itemstack
 	end,
 })
 

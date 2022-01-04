@@ -181,7 +181,8 @@ minetest.register_node("petz:ducky_nest_egg", {
         end
     end,
 	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
-		petz.extract_egg_from_nest(pos, player, "petz:ducky_egg") --extract the egg
+		itemstack = petz.extract_egg_from_nest(pos, player, itemstack, "petz:ducky_egg") --extract the egg
+		return itemstack
 	end,
 })
 
@@ -223,7 +224,8 @@ minetest.register_node("petz:chicken_nest_egg", {
 		end
 	end,
 	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
-		petz.extract_egg_from_nest(pos, player, "petz:chicken_egg") --extract the egg
+		itemstack = petz.extract_egg_from_nest(pos, player, itemstack, "petz:chicken_egg") --extract the egg
+		return itemstack
 	end,
 })
 

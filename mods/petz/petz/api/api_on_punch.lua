@@ -47,11 +47,20 @@ end
 
 function petz.on_punch(self, puncher, time_from_last_punch, tool_capabilities, dir)
 	local pos = self.object:get_pos() --pos of the petz
-	if not mobkit.is_alive(self) then --is petz alive
+	if not(mobkit.is_alive(self)) then --is petz is died
 		return
 	end
 	--Do not punch when you are mounted on it!!!-->
 	if self.is_mountable and puncher == self.driver then
+		return
+	end
+	--Check the setting 'check_enable_damage'
+	if petz.settings.check_enable_damage and
+		not(minetest.setting_getbool("enable_damage")) then
+			return
+	end
+	--Check area protection
+	if petz.settings.no_damage_in_protected and minetest.is_protected(pos, puncher:get_player_name()) then
 		return
 	end
 	--Check Dreamcatcher Protection

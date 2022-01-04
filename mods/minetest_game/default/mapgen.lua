@@ -2098,7 +2098,7 @@ function default.register_decorations()
 		schematic = {
 			size = {x = 1, y = 5, z = 1},
 			data = {
-				{name = "default:dirt", force_place = true},{name = "swaz:reed"}, {name = "swaz:reed"}, {name = "swaz:reed"}, {name = "swaz:reed"}
+				{name = "default:dirt", force_place = true}, {name = "swaz:reed"}, {name = "swaz:reed"}, {name = "swaz:reed"}, {name = "swaz:reed"}
 			}
 		},
 		place_offset_y = 1,

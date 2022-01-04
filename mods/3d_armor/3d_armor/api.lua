@@ -134,6 +134,7 @@ armor = {
 		mithril = "moreores:mithril_ingot",
 		crystal = "ethereal:crystal_ingot",
 		lava = "lavastuff:ingot",
+		nether = "nether:nether_ingot",
 	},
 	fire_nodes = {
 		{"nether:lava_source",      5, 8},
@@ -179,6 +180,7 @@ armor.config = {
 	material_mithril = true,
 	material_crystal = true,
 	material_lava = true,
+	material_nether = true,
 	set_elements = "head torso legs feet shield",
 	set_multiplier = 1.1,
 	water_protect = true,

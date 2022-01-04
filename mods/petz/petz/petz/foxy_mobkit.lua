@@ -7,7 +7,7 @@ local pet_name = "foxy"
 local scale_model = 1.5
 petz.foxy = {}
 local mesh = 'petz_foxy.b3d'
-local textures = {"petz_foxy.png"}
+local textures = {"petz_foxy.png", "petz_foxy_light_brown.png"}
 local p1 = {x= -0.1875, y = -0.5, z = -0.25}
 local p2 = {x= 0.1875, y = -0.0625, z = 0.375}
 local collisionbox = petz.get_collisionbox(p1, p2, scale_model, nil)

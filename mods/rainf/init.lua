@@ -44,7 +44,7 @@ minetest.register_node("rainf:meadow", {
 	tiles = {"rainf_meadow.png", "rainf_dirt.png",
 		{name = "rainf_dirt.png^rainf_dirt_with_grass_side.png",
 			tileable_vertical = false}},
-	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
+	groups = {crumbly = 3, soil = 1},
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.25},
 	}),
@@ -55,7 +55,7 @@ minetest.register_node("rainf:blossom_meadow", {
 	tiles = {"rainf_blossom_meadow.png", "rainf_dirt.png",
 		{name = "rainf_dirt.png^rainf_dirt_with_grass_side.png",
 			tileable_vertical = false}},
-	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
+	groups = {crumbly = 3, soil = 1},
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.25},
 	}),

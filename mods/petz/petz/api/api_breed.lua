@@ -1,7 +1,15 @@
 local S = ...
 
+petz.is_fertile = function(self)
+	if self.pregnant_count and (self.pregnant_count > 0) then
+		return true
+	else
+		return false
+	end
+end
+
 petz.breed = function(self, clicker, wielded_item, wielded_item_name)
-	if not(self.is_rut) and not(self.is_pregnant) then
+	if (petz.is_fertile) and not(self.is_rut) and not(self.is_pregnant) then
 		wielded_item:take_item()
 		clicker:set_wielded_item(wielded_item)
 		self.is_rut = true
@@ -9,10 +17,13 @@ petz.breed = function(self, clicker, wielded_item, wielded_item_name)
 		petz.do_particles_effect(self.object, self.object:get_pos(), "heart")
 		mokapi.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
 	else
+		local player_name = clicker:get_player_name()
 		if self.is_rut then
-			minetest.chat_send_player(clicker:get_player_name(), S("This animal is already rut."))
-		else
-			minetest.chat_send_player(clicker:get_player_name(), S("This animal is already pregnant."))
+			minetest.chat_send_player(player_name, S("This animal is already rut."))
+		elseif not petz.is_fertile then
+			minetest.chat_send_player(player_name, S("This animal is infertile."))
+		elseif self.is_pregnant then
+			minetest.chat_send_player(player_name, S("This animal is already pregnant."))
 		end
 	end
 end
@@ -43,8 +54,7 @@ petz.pony_breed = function(self, clicker, wielded_item, wielded_item_name)
 		local petz_type = meta:get_string("petz_type")
 		if not(self.is_pregnant) and self.pregnant_count > 0 and self.type == petz_type then
 			self.is_pregnant = mobkit.remember(self, "is_pregnant", true)
-			local pregnant_count = self.pregnant_count - 1
-			mobkit.remember(self, "pregnant_count", pregnant_count)
+			self.pregnant_count = mobkit.remember(self, "pregnant_count", self.pregnant_count - 1)
 			local max_speed_forward = meta:get_int("max_speed_forward")
 			local max_speed_reverse = meta:get_int("max_speed_reverse")
 			local accel = meta:get_int("accel")
@@ -61,8 +71,6 @@ end
 
 petz.childbirth = function(self)
 	local pos = self.object:get_pos()
-	self.is_pregnant = mobkit.remember(self, "is_pregnant", false)
-	self.pregnant_time = mobkit.remember(self, "pregnant_time", 0.0)
 	local baby_properties = {}
 	baby_properties["baby_born"] = true
 	if self.father_genes then
@@ -87,23 +95,31 @@ petz.childbirth = function(self)
 	end
 	pos.y = pos.y + 1.01 -- birth a litte up
 	local baby = minetest.add_entity(pos, baby_type, minetest.serialize(baby_properties))
-	mokapi.make_sound("object", baby, "petz_pop_sound", petz.settings.max_hear_distance)
-	local baby_entity = baby:get_luaentity()
-	baby_entity.is_baby = true
-	mobkit.remember(baby_entity, "is_baby", baby_entity.is_baby)
-	if not(self.owner== nil) and not(self.owner== "") then
-		baby_entity.tamed = true
-		mobkit.remember(baby_entity, "tamed", baby_entity.tamed)
-		baby_entity.owner = self.owner
-		mobkit.remember(baby_entity, "owner", baby_entity.owner)
+	if baby then
+		self.is_pregnant = mobkit.remember(self, "is_pregnant", false)
+		self.pregnant_time = mobkit.remember(self, "pregnant_time", 0.0)
+		mokapi.make_sound("object", baby, "petz_pop_sound", petz.settings.max_hear_distance)
+		local baby_entity = baby:get_luaentity()
+		baby_entity.is_baby = mobkit.remember(baby_entity, "is_baby", true)
+		if not(self.owner== nil) and not(self.owner== "") then
+			baby_entity.tamed = true
+			mobkit.remember(baby_entity, "tamed", baby_entity.tamed)
+			baby_entity.owner = self.owner
+			mobkit.remember(baby_entity, "owner", baby_entity.owner)
+		end
+		return baby_entity
+	else
+		return nil
 	end
-	return baby_entity
 end
 
 petz.pregnant_timer = function(self, dtime)
 	self.pregnant_time = mobkit.remember(self, "pregnant_time", self.pregnant_time + dtime)
 	if self.pregnant_time >= petz.settings.pregnancy_time then
 		local baby_entity = petz.childbirth(self)
+		if not baby_entity then
+			return
+		end
 		if self.is_mountable then
 			--Set the genetics accordingly the father and the mother
 			local speedup = (self.horseshoes or 0) * petz.settings.horseshoe_speedup

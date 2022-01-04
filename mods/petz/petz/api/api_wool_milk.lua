@@ -59,10 +59,7 @@ end
 ---
 
 petz.milk_refill = function(self)
-	self.food_count = self.food_count + 1
-	mobkit.remember(self, "food_count", self.food_count)
 	if self.food_count >= 5 then -- if calf replaces 5x grass then it refill milk
-		self.food_count = mobkit.remember(self, "food_count", self.food_count)
 		self.milked = mobkit.remember(self, "milked", false)
 	end
 end
@@ -70,6 +67,9 @@ end
 petz.milk_milk = function(self, clicker)
 	if self.is_male then
 		minetest.chat_send_player(clicker:get_player_name(), S("Milk only female animals!"))
+		return
+	elseif self.is_baby then
+		minetest.chat_send_player(clicker:get_player_name(), S("You cannot milk babies!"))
 		return
 	end
 	local inv = clicker:get_inventory()
